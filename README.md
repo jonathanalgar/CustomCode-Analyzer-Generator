@@ -13,11 +13,11 @@
 
 ## Overview
 
-The BSD-3 licensed [`CustomCode-Analyzer`](https://github.com/jonathanalgar/CustomCode-Analyzer) component was released to give you real-time feedback your C# code as you build an External Library in your IDE of choice. But more generally `CustomCode-Analyzer` can be thought of as a way of locally validating an External Library at the point of build. This makes it a powerful component in an end-to-end Large Language Model (LLM) pipeline for generating an ODC External Library:
+The BSD-3 licensed [`CustomCode-Analyzer`](https://github.com/jonathanalgar/CustomCode-Analyzer) component was released to give you real-time feedback your C# code as you build an external library in your IDE of choice. But more generally `CustomCode-Analyzer` can be thought of as a way of locally validating an external library at the point of build. This makes it a powerful component in an end-to-end Large Language Model (LLM) pipeline for generating an ODC external library:
 
 ![](./README_resources/diagram.png)
 
-The `CustomCode-Analyzer-Generator` is an orchestrator  around the `CustomCode-Analyzer` and other local components and external APIs. As seen in the above diagram the `CustomCode-Analyzer-Generator` takes user input for an External Library functionality and:
+The `CustomCode-Analyzer-Generator` is an orchestrator  around the `CustomCode-Analyzer` and other local components and external APIs. As seen in the above diagram the `CustomCode-Analyzer-Generator` takes user input for an external library functionality and:
 
 * Calls the NuGet API and LLMs to generate the candidate implementation and unit test code.
 * Creates implementation and unit test C# projects, installs packages and incorporates candidate code.
@@ -59,7 +59,7 @@ _(Quick start script for Mac coming soon)._
 
 ##  Technical notes on evaluation
 
-To validate that the LLM pipeline works effectively and generates external libraries aligned with user intent there is a supplementary evaluation pipeline complete with [eight diverse test cases](./agents/evaluation/ground_truth/).
+To validate that the LLM pipeline works effectively and generates external libraries aligned with user intent there is a supplementary evaluation pipeline complete with [eight diverse test cases](./agents/evaluation/ground_truth/). The objective is [to add more](https://github.com/jonathanalgar/CustomCode-Analyzer-Generator/issues/6).
 
 This means a range of models and prompts can be programatically benchmarked. The central piece of pipeline is the Roslyn-based [`CCGATestGenerator`](./agents/evaluation/CCAGTestGenerator/), which—given the LLM-generated implementation code and human created ground truth file—will deterministically create a unit test.
 
@@ -76,6 +76,9 @@ You can replicate a run using:
 ```
 docker compose -f run_full_benchmark.yml up --abort-on-container-exit
 ```
+
+> :bulb: API access to o3-mini is [still in preview](https://help.openai.com/en/articles/10362446-api-access-to-o1-and-o3-mini).
+
 _(More documentation and analysis coming soon.)_
 
 ## TODO

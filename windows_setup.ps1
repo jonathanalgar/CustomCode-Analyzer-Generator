@@ -16,43 +16,6 @@ try {
     exit
 }
 
-# Perform Docker cleanup to prevent accumulation of old containers and images
-Write-Host "`nCleaning up old containers and images..."
-try {
-    # Stop and remove only containers related to this specific image
-    $containers = docker ps -a --filter "ancestor=ghcr.io/jonathanalgar/customcode-analyzer-generator" --format "{{.ID}}"
-    if ($containers) {
-        Write-Host "Removing old containers from customcode-analyzer-generator..."
-        docker rm -f $containers
-    } else {
-        Write-Host "No old containers from customcode-analyzer-generator found."
-    }
-    
-    # Remove only dangling images related to this specific repository
-    # This is much safer than a broad prune
-    $danglingImages = docker images --filter "dangling=true" --filter "reference=ghcr.io/jonathanalgar/customcode-analyzer-generator*" --format "{{.ID}}"
-    if ($danglingImages) {
-        Write-Host "Removing dangling images from customcode-analyzer-generator..."
-        docker rmi $danglingImages
-    } else {
-        Write-Host "No dangling images from customcode-analyzer-generator found."
-    }
-    
-    # Remove old versions of the image (keep the latest)
-    $images = docker images "ghcr.io/jonathanalgar/customcode-analyzer-generator" --format "{{.ID}}" | Select-Object -Skip 1
-    if ($images) {
-        Write-Host "Removing old image versions of customcode-analyzer-generator..."
-        docker rmi $images
-    } else {
-        Write-Host "No old image versions of customcode-analyzer-generator found."
-    }
-    
-    Write-Host "Cleanup completed successfully" -ForegroundColor Green
-} catch {
-    Write-Host "Warning: Cleanup encountered an issue. Continuing with installation..." -ForegroundColor Yellow
-    Write-Host $_.Exception.Message
-}
-
 # Get the current username
 $username = $env:USERNAME
 
@@ -109,6 +72,42 @@ try {
     Write-Host "`nPress any key to exit..."
     $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
     exit
+}
+
+# Perform Docker cleanup to prevent accumulation of old containers and images
+Write-Host "`nCleaning up old containers and images..."
+try {
+    # Stop and remove only containers related to this specific image
+    $containers = docker ps -a --filter "ancestor=ghcr.io/jonathanalgar/customcode-analyzer-generator" --format "{{.ID}}"
+    if ($containers) {
+        Write-Host "Removing old containers from customcode-analyzer-generator..."
+        docker rm -f $containers
+    } else {
+        Write-Host "No old containers from customcode-analyzer-generator found."
+    }
+    
+    # Remove only dangling images related to this specific repository
+    $danglingImages = docker images --filter "dangling=true" --filter "reference=ghcr.io/jonathanalgar/customcode-analyzer-generator*" --format "{{.ID}}"
+    if ($danglingImages) {
+        Write-Host "Removing dangling images from customcode-analyzer-generator..."
+        docker rmi $danglingImages
+    } else {
+        Write-Host "No dangling images from customcode-analyzer-generator found."
+    }
+    
+    # Remove old versions of the image (keep the latest)
+    $images = docker images "ghcr.io/jonathanalgar/customcode-analyzer-generator" --format "{{.ID}}" | Select-Object -Skip 1
+    if ($images) {
+        Write-Host "Removing old image versions of customcode-analyzer-generator..."
+        docker rmi $images
+    } else {
+        Write-Host "No old image versions of customcode-analyzer-generator found."
+    }
+    
+    Write-Host "Cleanup completed successfully" -ForegroundColor Green
+} catch {
+    Write-Host "Warning: Cleanup encountered an issue. Continuing..." -ForegroundColor Yellow
+    Write-Host $_.Exception.Message
 }
 
 $scriptPath = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
