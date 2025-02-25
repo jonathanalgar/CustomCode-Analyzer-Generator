@@ -284,5 +284,17 @@ Write-Host "2. Navigate to the installation directory:"
 Write-Host "   cd `"$installPath`""
 Write-Host "3. Run the script:"
 Write-Host "   .\customcode-analyzer-generator.ps1"
+
+if ($executionPolicy -eq "Restricted" -or $executionPolicy -eq "AllSigned") {
+    Write-Host "`nPowerShell is currently blocking script execution!" -ForegroundColor Yellow
+    Write-Host "Detected Execution Policy: $executionPolicy"
+    Write-Host "`nTo allow the script to run, choose one of these two options:"
+    Write-Host "   - (Recommended) Change policy to allow local scripts:"
+    Write-Host "     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"
+    Write-Host "   - (One-time use) Run the script with temporary permission:"
+    Write-Host "     powershell -ExecutionPolicy Bypass -File .\customcode-analyzer-generator.ps1"
+    Write-Host "`nAfter fixing the execution policy, return to Step 3 and run the script."
+}
+
 Write-Host "`nPress any key to exit..."
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
