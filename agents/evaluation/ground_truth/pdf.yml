@@ -1,0 +1,9 @@
+description: "Extract the text from the provided PDF"
+actions:
+  ExtractPDF:
+    params:
+      - pdfInput
+    testCases:
+      - inputs:
+          pdfInput: "path:./test_data/sample.pdf"
+        expected: "This is a sample text.\n"

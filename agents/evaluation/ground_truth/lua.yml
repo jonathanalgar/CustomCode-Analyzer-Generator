@@ -1,0 +1,12 @@
+description: "Take a Lua program in a string as input and return the stdout in the output without any end of file newline"
+actions:
+  LuaExecute:
+    params:
+      - luaString
+    testCases:
+      - inputs:
+          luaString: "print('hello')"
+        expected: "hello"
+      - inputs:
+          luaString: "local t = setmetatable({}, {__index = string}); print(t.upper('wow'))"
+        expected: "WOW"

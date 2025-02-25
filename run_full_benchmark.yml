@@ -1,0 +1,42 @@
+services:
+  customcode-analyzer-generator:
+    image: customcode-analyzer-generator-dev
+    env_file: .env
+    environment:
+      - SECURE_GATEWAY=gateway
+    volumes:
+      - ./benchmark_results:/app/output
+      - ./agents:/app/agents
+    depends_on:
+      - redis
+    networks:
+      - app-network
+      - internet
+    command: ["benchmark", "--prompt", "ONE_SHOT",  "--generation-model", "gpt4o", "--test-cases", "/app/agents/evaluation/ground_truth/python.yml", "--log-level", "INFO"]
+
+  redis:
+    image: redis:alpine
+    command: sh -c "redis-server --requirepass 'changeme' --loglevel verbose 2>&1 | grep -v 'DB 0:'"
+    expose:
+      - "6379"
+    networks:
+      app-network:
+        aliases:
+          - gateway
+
+  redis-init:
+    image: redis:alpine
+    command: sh -c "sleep 1 && redis-cli -h redis -a 'changeme' SET test_key 'boo' && tail -f /dev/null"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    internal: true
+  internet:
+    driver: bridge
+
+
+    

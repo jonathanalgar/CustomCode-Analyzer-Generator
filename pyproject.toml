@@ -1,0 +1,66 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "customcode-analyzer.generator"
+version = "0.1.0"
+description = "ODC Custom Code Analyzer.Generator"
+authors = ["Jonathan Algar <jonathan.algar@gmail.com>"]
+readme = "README.md"
+packages = [
+{ include = "agents" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+langsmith = "^0.2.10"
+langchain-community = "^0.3.14"
+langchain-core = "^0.3.29"
+langchain-openai = "^0.3.0"
+notebook = "^7.3.2"
+trustcall = "^0.0.26"
+requests = "^2.32.3"
+psutil = "^6.1.1"
+pandas = "^2.2.3"
+pyarrow = "^19.0.0"
+langchain-anthropic = "^0.3.7"
+haikunator = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+pytest-cov = "^4.1.0"
+isort = "^5.12.0"
+mypy = "^1.9.0"
+black = {extras = ["jupyter"], version = "^25.1.0"}
+flake8 = "^6.0.0"
+flake8-isort = "^6.0.0"
+flake8-docstrings = "^1.7.0"
+ipywidgets = "^8.1.5"
+types-requests = "^2.32.0.20241016"
+types-pyyaml = "^6.0.12.20241230"
+
+[tool.poetry.scripts]
+generate = "agents.generate_library:main"
+benchmark = "agents.evaluation.run_benchmark:main"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = "3.11"
+disallow_untyped_defs = true
+show_error_codes = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+exclude = ".venv"
+namespace_packages = true
+explicit_package_bases = true
+ignore_missing_imports = true
+
+[tool.coverage.report]
+include_namespace_packages = true
+skip_empty = true

@@ -1,0 +1,9 @@
+description: "Take a byte file as input and return simply the reversed byte file as output"
+actions:
+  ProcessImage:
+    params:
+      - imageInput
+    testCases:
+      - inputs:
+          imageInput: "path:./test_data/binary.bin"
+        expected: "path:./test_data/binary_reversed.bin"

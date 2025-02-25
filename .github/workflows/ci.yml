@@ -1,0 +1,53 @@
+name: CI
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+    tags-ignore:
+      - 'v*'
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: '3.11'
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4.3.0
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.8.5
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Check Python formatting
+        run: make check-python-format
+
+      - name: Check Python linting
+        run: make check-python-lint
+
+      - name: Run Python tests
+        run: make test-python
+
+      - name: Check C# formatting
+        run: make check-csharp
+
+      - name: Run .NET tests
+        run: make test-dotnet
+
+      - name: Build Docker image
+        run: docker build -t customcode-analyzer-generator -f Dockerfile .

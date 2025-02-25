@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisConnector", "RedisConnector\RedisConnector.csproj", "{BEC7C888-DED3-401C-B0FB-FCB04CE40822}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LLMGeneratedTests", "LLMGeneratedTests\LLMGeneratedTests.csproj", "{0FB6C865-3817-4A1C-9EEF-F6F603C3D74C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEC7C888-DED3-401C-B0FB-FCB04CE40822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC7C888-DED3-401C-B0FB-FCB04CE40822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC7C888-DED3-401C-B0FB-FCB04CE40822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC7C888-DED3-401C-B0FB-FCB04CE40822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FB6C865-3817-4A1C-9EEF-F6F603C3D74C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FB6C865-3817-4A1C-9EEF-F6F603C3D74C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FB6C865-3817-4A1C-9EEF-F6F603C3D74C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FB6C865-3817-4A1C-9EEF-F6F603C3D74C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

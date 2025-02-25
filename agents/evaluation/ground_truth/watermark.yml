@@ -1,0 +1,15 @@
+description: "Take an image and return it with a watermark in the centre. Use the font ttf, font size and display text as inputs. White, 50% opacity. Use SkiaSharp package as it's MIT licensed"
+actions:
+  WatermarkImage:
+    params:
+      - imageInput
+      - fontTTFInput
+      - fontSizeInput
+      - displayTextInput
+    testCases:
+      - inputs:
+          imageInput: "path:./test_data/lisbon_sharp.png"
+          fontTTFInput: "path:./test_data/OpenSans-Regular.ttf"
+          fontSizeInput: 60
+          displayTextInput: "DO NOT REPRODUCE"
+        expected: "path:./test_data/lisbon_sharp_watermarked.png"

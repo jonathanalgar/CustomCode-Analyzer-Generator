@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCAGTestGenerator.Core", "CCAGTestGenerator.Core\CCAGTestGenerator.Core.csproj", "{ADDF3C1A-FEFF-4382-A54B-A9279B1782DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCAGTestGenerator.Tests", "CCAGTestGenerator.Tests\CCAGTestGenerator.Tests.csproj", "{A00F868B-CE41-479D-9B69-BC3A883EADCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADDF3C1A-FEFF-4382-A54B-A9279B1782DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADDF3C1A-FEFF-4382-A54B-A9279B1782DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADDF3C1A-FEFF-4382-A54B-A9279B1782DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADDF3C1A-FEFF-4382-A54B-A9279B1782DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A00F868B-CE41-479D-9B69-BC3A883EADCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00F868B-CE41-479D-9B69-BC3A883EADCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00F868B-CE41-479D-9B69-BC3A883EADCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00F868B-CE41-479D-9B69-BC3A883EADCD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

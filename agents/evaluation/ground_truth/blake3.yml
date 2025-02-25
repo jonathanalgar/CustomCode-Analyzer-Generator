@@ -1,0 +1,18 @@
+description: "Convert a string to its blake3 hash value"
+actions:
+  GetSHA1Hash:
+    params:
+      - inputString
+    testCases:
+      - inputs:
+          inputString: "hello"
+        expected: "ea8f163db38682925e4491c5e58d4bb3506ef8c14eb78a86e908c5624a67200f"
+      - inputs:
+          inputString: "The quick brown fox jumps over the lazy dog"
+        expected: "2f1514181aadccd913abd94cfa592701a5686ab23f8df1dff1b74710febc6d4a"
+      - inputs:
+          inputString: "12345"
+        expected: "86f2d80abe9c3f7b4a1a57a8d1130fa8dc08c81604833ce1212dc039b010d9e4"
+      - inputs:
+          inputString: "Lorem ipsum dolor sit amet"
+        expected: "f1da5f4e2bd5669307bcdb2e223dad05af7425207cbee59e73526235f50f76ad"

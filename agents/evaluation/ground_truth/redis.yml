@@ -1,0 +1,11 @@
+description: "Connect to a redis database set up on my secure gateway (port 6379). password and key will be input params. return the key value"
+actions:
+  RedisConnection:
+    params:
+      - password
+      - key
+    testCases:
+      - inputs:
+          password: "changeme"
+          key: "test_key"
+        expected: "boo"

@@ -1,0 +1,15 @@
+description: "Calculate the Levenshtein distance between two strings"
+actions:
+  LevenshteinDistance:
+    params:
+      - firstString
+      - secondString
+    testCases:
+      - inputs:
+          firstString: "kitten"
+          secondString: "sitting"
+        expected: 3
+      - inputs:
+          firstString: "flaw"
+          secondString: "lawn"
+        expected: 2

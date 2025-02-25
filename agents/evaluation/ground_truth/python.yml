@@ -1,0 +1,12 @@
+description: "Use IronPython to take a python program in a string as input and return the stdout in the output without any end of file newline"
+actions:
+  PythonExecute:
+    params:
+      - pythonString
+    testCases:
+      - inputs:
+          pythonString: "print('hello')"
+        expected: "hello"
+      - inputs:
+          pythonString: "print([x+y for x in 'abc' for y in '123'])"
+        expected: "['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']"
