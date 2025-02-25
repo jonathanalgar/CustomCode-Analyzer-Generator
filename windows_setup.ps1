@@ -285,9 +285,13 @@ Write-Host "   cd `"$installPath`""
 Write-Host "3. Run the script:"
 Write-Host "   .\customcode-analyzer-generator.ps1"
 
-if ($executionPolicy -eq "Restricted" -or $executionPolicy -eq "AllSigned") {
-    Write-Host "`nPowerShell is currently blocking script execution!" -ForegroundColor Yellow
-    Write-Host "Detected Execution Policy: $executionPolicy"
+$effectivePolicy = Get-ExecutionPolicy -Scope Process
+if ($effectivePolicy -eq "Undefined") {
+    $effectivePolicy = Get-ExecutionPolicy -Scope CurrentUser
+}
+if ($effectivePolicy -eq "Restricted" -or $effectivePolicy -eq "AllSigned") {
+    Write-Host "`nPowerShell is blocking script execution!" -ForegroundColor Yellow
+    Write-Host "Detected Execution Policy: $effectivePolicy"
     Write-Host "`nTo allow the script to run, choose one of these two options:"
     Write-Host "   - (Recommended) Change policy to allow local scripts:"
     Write-Host "     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"
