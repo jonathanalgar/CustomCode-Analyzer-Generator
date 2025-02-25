@@ -16,6 +16,43 @@ try {
     exit
 }
 
+# Perform Docker cleanup to prevent accumulation of old containers and images
+Write-Host "`nCleaning up old containers and images..."
+try {
+    # Stop and remove only containers related to this specific image
+    $containers = docker ps -a --filter "ancestor=ghcr.io/jonathanalgar/customcode-analyzer-generator" --format "{{.ID}}"
+    if ($containers) {
+        Write-Host "Removing old containers from customcode-analyzer-generator..."
+        docker rm -f $containers
+    } else {
+        Write-Host "No old containers from customcode-analyzer-generator found."
+    }
+    
+    # Remove only dangling images related to this specific repository
+    # This is much safer than a broad prune
+    $danglingImages = docker images --filter "dangling=true" --filter "reference=ghcr.io/jonathanalgar/customcode-analyzer-generator*" --format "{{.ID}}"
+    if ($danglingImages) {
+        Write-Host "Removing dangling images from customcode-analyzer-generator..."
+        docker rmi $danglingImages
+    } else {
+        Write-Host "No dangling images from customcode-analyzer-generator found."
+    }
+    
+    # Remove old versions of the image (keep the latest)
+    $images = docker images "ghcr.io/jonathanalgar/customcode-analyzer-generator" --format "{{.ID}}" | Select-Object -Skip 1
+    if ($images) {
+        Write-Host "Removing old image versions of customcode-analyzer-generator..."
+        docker rmi $images
+    } else {
+        Write-Host "No old image versions of customcode-analyzer-generator found."
+    }
+    
+    Write-Host "Cleanup completed successfully" -ForegroundColor Green
+} catch {
+    Write-Host "Warning: Cleanup encountered an issue. Continuing with installation..." -ForegroundColor Yellow
+    Write-Host $_.Exception.Message
+}
+
 # Get the current username
 $username = $env:USERNAME
 
@@ -206,27 +243,27 @@ $cleanedOpenAiKey = Clean-ApiKey $openaiKey
 $cleanedFreepikKey = Clean-ApiKey $freepikKey
 $cleanedLangchainKey = Clean-ApiKey $langchainKey
 
-# Create content with careful line endings
-$envContent = @"
-OPENAI_API_KEY=$cleanedOpenAiKey
-FREEPIK_API_KEY=$cleanedFreepikKey
-"@
+# Build environment variables line by line to ensure proper formatting
+$envLines = @()
+$envLines += "OPENAI_API_KEY=$cleanedOpenAiKey"
+$envLines += "FREEPIK_API_KEY=$cleanedFreepikKey"
 
 # Add Langchain configuration if API key is provided
 if (-not [string]::IsNullOrWhiteSpace($cleanedLangchainKey)) {
-    $envContent += @"
-LANGCHAIN_API_KEY=$cleanedLangchainKey
-LANGCHAIN_TRACING_V2=true
-"@
+    $envLines += "LANGCHAIN_API_KEY=$cleanedLangchainKey"
+    $envLines += "LANGCHAIN_TRACING_V2=true"
 }
 
-$envContent += @"
-RETAIN_ON_FAILURE=
-SEARCH_TERM_LLM=
-CODE_GENERATION_LLM=
-"@
+$envLines += "RETAIN_ON_FAILURE="
+$envLines += "SEARCH_TERM_LLM="
+$envLines += "CODE_GENERATION_LLM="
 
-$envContent = $envContent.Replace("`r`n", "`n")
+# Join the lines with proper newline characters
+$envContent = $envLines -join "`n"
+
+# Write file with UTF8 encoding without BOM
+$utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($envPath, $envContent, $utf8NoBomEncoding)
 
 # Write file with UTF8 encoding without BOM
 $utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $false

@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
       - internet
-    command: ["benchmark", "--prompt", "ONE_SHOT",  "--generation-model", "gpt4o", "--test-cases", "/app/agents/evaluation/ground_truth/python.yml", "--log-level", "INFO"]
+    command: ["benchmark", "--prompt", "ONE_SHOT",  "--generation-model", "o3-mini-high", "--test-cases", "/app/agents/evaluation/ground_truth/", "--log-level", "INFO"]
 
   redis:
     image: redis:alpine

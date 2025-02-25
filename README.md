@@ -1,9 +1,9 @@
 # OutSystems Developer Cloud (ODC) Custom Code Analyzer: Generator
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer&metric=ncloc&token=cdc14f785767dbdef568a43b914c07c5be4f2e69)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer-Generator&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer-Generator) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer&metric=reliability_rating&token=cdc14f785767dbdef568a43b914c07c5be4f2e69)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer&metric=sqale_rating&token=cdc14f785767dbdef568a43b914c07c5be4f2e69)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer)
- [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer&metric=vulnerabilities&token=cdc14f785767dbdef568a43b914c07c5be4f2e69)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer-Generator&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer-Generator) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer-Generator&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer-Generator)
+ [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jonathanalgar_CustomCode-Analyzer-Generator&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jonathanalgar_CustomCode-Analyzer-Generator)
 
 > :information_source: This component is unofficial and unsupported by OutSystems.
 
@@ -48,7 +48,7 @@ _(Quick-start script for Mac coming soon)._
 1. Open the [`Terminal` app](https://support.apple.com/en-sg/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac).
 1. Create the required directories in the home directory or elsewhere:
 
-        mkdir ~/CustomCode-Analyzer-Generator && cd ~/CustomCode-Analyzer-Generator && mkdir generated-solutions
+        mkdir -p ~/CustomCode-Analyzer-Generator/generated-solutions && chmod 700 ~/CustomCode-Analyzer-Generator/generated-solutions && cd ~/CustomCode-Analyzer-Generator
 
 1. Create a `.env` file in `~/CustomCode-Analyzer-Generator` and edit with your text editor of choice. Use [`.env_example`](./.env_example) as template.
 1. Run the command:
@@ -65,6 +65,7 @@ This means a range of models and prompts can be programatically benchmarked. The
 
 Test cases covered include [binary data](./agents/evaluation/ground_truth/pdf.yml) and [network access through the secure gateway](./agents/evaluation/ground_truth/redis.yml). The test set is currently limited to single action (but with support for multi-parameter using an LLM to do name mapping) and single type output.
 
+
 _(More documentation coming soon.)_
 
 ## TODO
@@ -75,4 +76,4 @@ See [here](https://github.com/jonathanalgar/CustomCode-Analyzer/issues?q=is%3Aop
 
 Please report bugs and feature requests [here](https://github.com/jonathanalgar/CustomCode-Analyzer/issues/new/choose).
 
-PRs are welcome. In particular, code quality improvements, new unit/integration tests, new ground truths and documentation improvements are all welcome 🤗 All changes to code should pass all existing tests (which are lacking and need to be expanded!). Please format any new code with [Flake8 and Black for Python](./Makefile) and [Csharpier for C#](./Makefile).
+PRs are welcome. In particular, code quality improvements, new unit/integration tests, new ground truths and documentation improvements are all welcome 🤗 All changes to code should pass all existing tests (which are lacking and need to be expanded!). Please format any new code with [Mypy and Flake8 for Python](./Makefile) and [Csharpier for C#](./Makefile).
