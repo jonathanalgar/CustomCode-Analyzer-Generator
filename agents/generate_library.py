@@ -56,9 +56,7 @@ def _get_model_from_env_or_prompt(available_models: dict, model_type: str, env_v
                 print(f"Using {env_model_name} for {model_type} (from environment variable)")
                 return models[env_model_name]
         print(f"Warning: Model '{env_model_name}' specified in {env_var_name} not found. Prompting for selection.")
-
-    print(f"(Tip: add {env_var_name} to .env to skip this input prompt)")
-    return select_model(available_models, model_type)
+    return select_model(available_models, model_type, env_var_name)
 
 
 def main() -> None:
@@ -68,9 +66,10 @@ def main() -> None:
         raise EnvironmentError("No OpenAI API key found in .env file. Please add OPENAI_API_KEY")
 
     available_models = get_available_models(api_keys)
+
     use_case = get_user_input()
 
-    print("\nSelect models for library generation:")
+    print("\nNow let's select the which LLMs to use to generate the library..")
     search_term_llm = _get_model_from_env_or_prompt(available_models, "NuGet package search", "SEARCH_TERM_LLM")
 
     code_generation_llm = _get_model_from_env_or_prompt(available_models, "code generation", "CODE_GENERATION_LLM")

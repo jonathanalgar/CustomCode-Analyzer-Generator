@@ -45,17 +45,19 @@ def get_model(model_name: str) -> BaseChatModel:
         raise KeyError(f"Model {model_name} not found in any provider.")
 
 
-def select_model(available_models: Dict[str, Dict[str, Any]], purpose: str) -> Any:
+def select_model(available_models: Dict[str, Dict[str, Any]], purpose: str, env_var_name: str) -> Any:
     """Prompts the user to select a model from the available models based on the given purpose."""
-    print(f"\nSelect model for {purpose}:")
+    print(f"\nSelect model for {purpose} (Tip: add {env_var_name} to .env to skip this input prompt in future):")
     options = _get_model_options(available_models, purpose)
     default_option = options[0]
-
     for idx, (name, _) in enumerate(options, start=1):
         if idx == 1:
             print(f"{idx}. {name} (default - press Enter)")
         else:
             print(f"{idx}. {name}")
+    print(
+        "! If you are using the free tier of the OpenAI API, only gpt4o-mini model will work (see https://platform.openai.com/docs/guides/rate-limits)"
+    )
 
     while True:
         choice = input("Enter your choice (number or press Enter for default): ").strip()
