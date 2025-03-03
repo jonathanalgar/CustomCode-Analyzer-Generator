@@ -65,7 +65,7 @@ This means a range of models and prompts can be programatically benchmarked. The
 
 Test cases covered include [binary data](./agents/evaluation/ground_truth/pdf.yml) and [network access through the secure gateway](./agents/evaluation/ground_truth/redis.yml). The test set is currently limited to single action (but with support for multi-parameter using an LLM to do name mapping) and single type output.
 
-Consolidated no-repetition results for 2x OpenAI models with one-shot prompt (current default prompt):
+Summary of consolidated no-repetition results for 2x OpenAI models with one-shot prompt (current default prompt):
 
 ![](README_resources/runs.png)
 
@@ -89,4 +89,4 @@ See [here](https://github.com/jonathanalgar/CustomCode-Analyzer/issues?q=is%3Aop
 
 Please report bugs and feature requests [here](https://github.com/jonathanalgar/CustomCode-Analyzer/issues/new/choose).
 
-PRs are welcome. In particular, code quality improvements, new unit/integration tests, new ground truths, and documentation improvements are all welcome 🤗 All changes to code should pass all existing tests (which are lacking and need to be expanded!). Please format any new code with [Mypy and Flake8 for Python](./Makefile) and [Csharpier for C#](./Makefile).
+PRs are welcome. In particular, code quality improvements, new unit/integration tests, new ground truths, and documentation improvements are all welcome 🤗 All changes to code should pass all existing tests (which are lacking and need to be expanded!). Please format any new code with [Mypy and Flake8 for Python](https://github.com/jonathanalgar/CustomCode-Analyzer-Generator/blob/d3cd06bd8f3fb962a1bb5459a15f098f9fc4b0c1/Makefile#L10-L12) and [Csharpier for C#](https://github.com/jonathanalgar/CustomCode-Analyzer-Generator/blob/d3cd06bd8f3fb962a1bb5459a15f098f9fc4b0c1/Makefile#L14-L15).
