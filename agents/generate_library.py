@@ -30,7 +30,7 @@ def get_user_input() -> str:
 `---._.--- CustomCode-Analyzer-Generator, an experimental project -ja---._.---'"""
 
     print(banner)
-    print("\n\nPlease describe what functionality you want the ODC external library to provide.")
+    print("\n\nPlease describe what functionality you want the ODC External Library to provide.")
     print("Example: 'take a string and return the sha1 hash'")
     print("\nEnter the functionality:")
 

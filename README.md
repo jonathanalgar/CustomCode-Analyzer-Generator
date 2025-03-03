@@ -9,11 +9,11 @@
 
 ![](./README_resources/header.png)
 
-⚡ **`CustomCode-Analyzer-Generator` is a command line tool to generate ODC External Library solutions complete with unit tests**. See examples of generated solutions [here](./README_resources/example_generations/RedisConnector/) (_**>** Connect to a redis database set up on my secure gateway (port 6379). password and key will be input params. return the key value_) and [here](./README_resources/example_generations/PythonRunner/) (_**>** Take a python program in a string as input and return the stdout in the output_). ⚡
+⚡ **`CustomCode-Analyzer-Generator` is a command-line tool to generate validated OutSytems Developer Cloud (ODC) External Library projects complete with unit tests.**. See examples of generated solutions [here](./README_resources/example_generations/RedisConnector/) (_**>** Connect to a redis database set up on my secure gateway (port 6379). password and key will be input params. return the key value_) and [here](./README_resources/example_generations/PythonRunner/) (_**>** Take a python program in a string as input and return the stdout in the output_). ⚡
 
 ## Overview
 
-The BSD-3 licensed [`CustomCode-Analyzer`](https://github.com/jonathanalgar/CustomCode-Analyzer) component was released to give you real-time feedback your C# code as you build an external library in your IDE of choice. But more generally `CustomCode-Analyzer` can be thought of as a way of locally validating an external library at the point of build. This makes it a powerful component in an end-to-end Large Language Model (LLM) pipeline for generating an ODC external library:
+The BSD-3 licensed [`CustomCode-Analyzer`](https://github.com/jonathanalgar/CustomCode-Analyzer) component was released to give you real-time feedback your C# code as you build an external library in your IDE of choice. But more generally `CustomCode-Analyzer` can be thought of as a way of locally validating an external library project at the point of build. This makes it a powerful component in an end-to-end Large Language Model (LLM) pipeline for generating an ODC external library:
 
 ![](./README_resources/diagram.png)
 
