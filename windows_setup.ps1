@@ -264,9 +264,41 @@ $envContent = $envLines -join "`n"
 $utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $false
 [System.IO.File]::WriteAllText($envPath, $envContent, $utf8NoBomEncoding)
 
-# Write file with UTF8 encoding without BOM
-$utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $false
-[System.IO.File]::WriteAllText($envPath, $envContent, $utf8NoBomEncoding)
+# Function to create Desktop shortcut
+function Create-DesktopShortcut {
+    param(
+        [string]$TargetPath,
+        [string]$ShortcutName
+    )
+    
+    $desktopPath = [Environment]::GetFolderPath("Desktop")
+    $shortcutPath = Join-Path $desktopPath "$ShortcutName.lnk"
+    
+    $WshShell = New-Object -ComObject WScript.Shell
+    $Shortcut = $WshShell.CreateShortcut($shortcutPath)
+    $Shortcut.TargetPath = $TargetPath
+    $Shortcut.WorkingDirectory = Split-Path -Parent $TargetPath
+    $Shortcut.IconLocation = "powershell.exe,0"
+    $Shortcut.Description = "Run CustomCode-Analyzer-Generator"
+    $Shortcut.Save()
+    
+    return $shortcutPath
+}
+
+# Ask user if they want to create a desktop shortcut
+$createShortcut = Read-Host "`nDo you want to create a desktop shortcut? (y/n)"
+if ($createShortcut -eq 'y' -or $createShortcut -eq 'Y') {
+    $shortcutPath = Create-DesktopShortcut -TargetPath "powershell.exe" -ShortcutName "CustomCode-Analyzer-Generator"
+    
+    # Update shortcut properties to run the script
+    $WshShell = New-Object -ComObject WScript.Shell
+    $Shortcut = $WshShell.CreateShortcut($shortcutPath)
+    $Shortcut.Arguments = "-ExecutionPolicy Bypass -File `"$mainScriptPath`""
+    $Shortcut.WorkingDirectory = $installPath
+    $Shortcut.Save()
+    
+    Write-Host "Desktop shortcut created at: $shortcutPath" -ForegroundColor Green
+}
 
 Write-Host "`nInstallation Complete!"
 Write-Host "-------------------------"
@@ -284,19 +316,28 @@ Write-Host "2. Navigate to the installation directory:"
 Write-Host "   cd `"$installPath`""
 Write-Host "3. Run the script:"
 Write-Host "   .\customcode-analyzer-generator.ps1"
-
-$effectivePolicy = Get-ExecutionPolicy -Scope Process
-if ($effectivePolicy -eq "Undefined") {
-    $effectivePolicy = Get-ExecutionPolicy -Scope CurrentUser
+if ($createShortcut -eq 'y' -or $createShortcut -eq 'Y') {
+    Write-Host "`nOr simply double-click the desktop shortcut that was created."
 }
-if ($effectivePolicy -eq "Restricted" -or $effectivePolicy -eq "AllSigned") {
-    Write-Host "`nPowerShell is blocking script execution!" -ForegroundColor Yellow
-    Write-Host "Detected Execution Policy: $effectivePolicy"
-    Write-Host "`nTo allow the script to run, choose one of these two options:"
-    Write-Host "   - (Recommended) Change policy to allow local scripts:"
-    Write-Host "     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"
-    Write-Host "   - (One-time use) Run the script with temporary permission:"
-    Write-Host "     powershell -ExecutionPolicy Bypass -File .\customcode-analyzer-generator.ps1"
+
+# Check execution policy for all scopes
+$processPolicy = Get-ExecutionPolicy -Scope Process
+$userPolicy = Get-ExecutionPolicy -Scope CurrentUser
+$machinePolicy = Get-ExecutionPolicy -Scope LocalMachine
+
+# If any relevant scope is Restricted or AllSigned, warn the user
+if ($processPolicy -eq "Restricted" -or $processPolicy -eq "AllSigned" -or
+    ($processPolicy -eq "Undefined" -and ($userPolicy -eq "Restricted" -or $userPolicy -eq "AllSigned" -or
+    ($userPolicy -eq "Undefined" -and ($machinePolicy -eq "Restricted" -or $machinePolicy -eq "AllSigned"))))) {
+    
+    Write-Host "`nPowerShell is blocking script execution!" -ForegroundColor Red
+    Write-Host "Current effective policy prevents running scripts." -ForegroundColor Yellow
+    
+    Write-Host "`nTo allow the script to run, choose one of these options:"
+    Write-Host "   - (Recommended) Change policy to allow local scripts:" -ForegroundColor Cyan
+    Write-Host "      Set-ExecutionPolicy RemoteSigned -Scope CurrentUser"
+    Write-Host "   - (One-time use) Run the script with this command:" -ForegroundColor Cyan
+    Write-Host "      powershell -ExecutionPolicy Bypass -File .\customcode-analyzer-generator.ps1"
     Write-Host "`nAfter fixing the execution policy, return to Step 3 and run the script."
 }
 

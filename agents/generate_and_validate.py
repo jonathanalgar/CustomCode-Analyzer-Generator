@@ -34,13 +34,13 @@ def generate_and_validate(
     logger.info(f"Generating solution for: {use_case}")
 
     env_retain = os.getenv("RETAIN_ON_FAILURE")
-    if env_retain is not None:
+    if env_retain and env_retain.strip():
         retain_on_failure = env_retain.lower() in ["true", "1", "yes", "y"]
         logger.info(f"Using RETAIN_ON_FAILURE={retain_on_failure} from .env")
     else:
         retain_input = input("Retain solution even if build fails? (y/n) [default: y]: ")
         retain_on_failure = retain_input.lower() in ["y", "yes"] or retain_input == ""
-        print("(Tip: add RETAIN_ON_FAILURE=true or RETAIN_ON_FAILURE=true to .env to skip this input prompt)")
+        print("(Tip: add RETAIN_ON_FAILURE=true or RETAIN_ON_FAILURE=true to .env to skip this input prompt in future)")
 
     llm_inputs = LLMInputs(
         use_case=use_case,

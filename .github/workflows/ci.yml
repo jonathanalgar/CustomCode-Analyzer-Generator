@@ -1,10 +1,13 @@
 name: CI
 on:
   push:
-    paths-ignore:
-      - '**.md'
+    branches:
+      - main
     tags-ignore:
       - 'v*'
+  pull_request:
+    branches:
+      - '**'
 
 concurrency:
   group: ${{ github.ref }}
