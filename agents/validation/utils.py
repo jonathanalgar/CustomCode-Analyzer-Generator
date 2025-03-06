@@ -54,5 +54,3 @@ def extract_class_name(code: str) -> str:
             return class_name
         finally:
             tmp_path.unlink(missing_ok=True)
-
-
