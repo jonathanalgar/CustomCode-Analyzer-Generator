@@ -69,7 +69,7 @@ def main() -> None:
 
     use_case = get_user_input()
 
-    print("\nNow let's select the which LLMs to use to generate the library..")
+    print("\nNow let's select which LLMs to use to generate the library..")
     search_term_llm = _get_model_from_env_or_prompt(available_models, "NuGet package search", "SEARCH_TERM_LLM")
 
     code_generation_llm = _get_model_from_env_or_prompt(available_models, "code generation", "CODE_GENERATION_LLM")
